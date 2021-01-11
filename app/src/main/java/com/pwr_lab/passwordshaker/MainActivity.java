@@ -70,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         switch (item.getItemId()) {
             case R.id.action_settings:
                 // TODO: implement settings
-                Toast.makeText(this, "settings action", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "settings action", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, passGenerator.next(), Toast.LENGTH_SHORT).show();
                 break;
             default:
                 return super.onOptionsItemSelected(item);
