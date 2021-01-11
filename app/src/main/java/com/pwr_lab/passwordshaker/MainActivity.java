@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private float x, y, z;
     private long timeLastShake;
 
+    private PasswordGenerator passGenerator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // change from splash screen to normal theme
@@ -48,6 +50,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // sensor
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorAcc = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+
+        // password generator
+        passGenerator = new PasswordGenerator();
+        passGenerator.setDefaultOptions();
     }
 
     @Override
