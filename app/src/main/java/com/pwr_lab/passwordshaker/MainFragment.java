@@ -1,5 +1,8 @@
 package com.pwr_lab.passwordshaker;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,11 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Main fragment - show generated pass
  */
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener {
     private static final String ARG_PASSWORD = "password";
 
     private String password;
@@ -45,6 +49,7 @@ public class MainFragment extends Fragment {
         View thisView = inflater.inflate(R.layout.fragment_main, container, false);
         passwordView = (TextView) thisView.findViewById(R.id.f_main_password);
         passwordView.setText(password);
+        passwordView.setOnClickListener(this);
         return thisView;
     }
 
@@ -54,5 +59,18 @@ public class MainFragment extends Fragment {
         if (passwordView != null) {
             passwordView.setText(password);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (password == null || password.length() == 0) return;
+
+        ClipboardManager clipboard = (ClipboardManager) getActivity()
+                .getSystemService(Context.CLIPBOARD_SERVICE);
+
+        ClipData clipData = ClipData.newPlainText("new-password", password);
+
+        clipboard.setPrimaryClip(clipData);
+        Toast.makeText(getActivity(), "Password copied to clipboard!", Toast.LENGTH_SHORT).show();
     }
 }
