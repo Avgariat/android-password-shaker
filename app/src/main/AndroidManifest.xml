@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SplashScreen">
+        <activity android:name=".SettingsActivity"
+            android:label="@string/activity_settings_title"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.PasswordShaker">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

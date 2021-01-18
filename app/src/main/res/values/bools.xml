@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <bool name="pref_digits_default">true</bool>
+    <bool name="pref_alpha_lower_default">true</bool>
+    <bool name="pref_alpha_upper_default">false</bool>
+    <bool name="pref_special_default">false</bool>
+</resources>

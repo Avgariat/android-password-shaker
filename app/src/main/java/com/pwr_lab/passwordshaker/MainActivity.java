@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.preference.PreferenceManager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -53,6 +56,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // password generator
         passGenerator = new PasswordGenerator();
         passGenerator.setDefaultOptions();
+
+        // save default settings values
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+
+        // shared prefs
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean prefDigits = prefs.getBoolean(SettingsActivity.KEY_SWITCH_DIGITS, false);
+        Toast.makeText(this, "" + prefDigits, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -68,9 +79,8 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // TODO: implement settings
-                // Toast.makeText(this, "settings action", Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, passGenerator.next(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
                 break;
             default:
                 return super.onOptionsItemSelected(item);

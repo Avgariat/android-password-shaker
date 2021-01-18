@@ -1,0 +1,59 @@
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:id="@+id/cat_pref_charset"
+        android:title="@string/charset_header">
+
+        <!-- digits -->
+        <SwitchPreferenceCompat
+            android:id="@+id/pref_digits"
+            android:defaultValue="@bool/pref_digits_default"
+            android:key="pref_digits"
+            android:title="@string/pref_digits_title"
+            app:summaryOff="@string/pref_digits_summary_off"
+            app:summaryOn="@string/pref_digits_summary_on" />
+
+        <!-- lower letters -->
+        <SwitchPreferenceCompat
+            android:id="@+id/pref_alpha_lower"
+            android:defaultValue="@bool/pref_alpha_lower_default"
+            android:key="pref_alpha_lower"
+            android:title="@string/pref_alpha_lower_title"
+            app:summaryOff="@string/pref_alpha_lower_summary_off"
+            app:summaryOn="@string/pref_alpha_lower_summary_on" />
+
+        <!-- upper letters -->
+        <SwitchPreferenceCompat
+            android:id="@+id/pref_alpha_upper"
+            android:defaultValue="@bool/pref_alpha_upper_default"
+            android:key="pref_alpha_upper"
+            android:title="@string/pref_alpha_upper_title"
+            app:summaryOff="@string/pref_alpha_upper_summary_off"
+            app:summaryOn="@string/pref_alpha_upper_summary_on" />
+
+        <!-- special characters -->
+        <SwitchPreferenceCompat
+            android:id="@+id/pref_special"
+            android:defaultValue="@bool/pref_special_default"
+            android:key="pref_special"
+            android:title="@string/pref_special_title"
+            app:summaryOff="@string/pref_special_summary_off"
+            app:summaryOn="@string/pref_special_summary_on" />
+
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:id="@+id/cat_pref_others"
+        android:title="@string/others_header">
+        <SeekBarPreference
+            android:id="@+id/pref_length"
+            android:key="pref_length"
+            android:title="@string/pref_length_title"
+            android:defaultValue="@integer/pref_length_default"
+            android:max="@integer/pref_length_max"
+            app:min="@integer/pref_length_min"
+            app:showSeekBarValue="true"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,8 +1,37 @@
 <resources>
+    <!-- app name -->
     <string name="app_name">Password Shaker</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- main activity -->
     <string name="guide_text_main">Shake your phone in order to generate new password</string>
     <string name="ps_settings_title">Settings</string>
-    <string name="f_main_password_title">Generated pasword</string>
+    <string name="f_main_password_title">Generated password</string>
+
+    <!-- settings activity -->
+    <string name="activity_settings_title">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="charset_header">Charsets</string>
+    <string name="others_header">Others</string>
+
+    <!-- Preference Charsets -->
+    <!-- digits switch -->
+    <string name="pref_digits_title">Digits (0–9)</string>
+    <string name="pref_digits_summary_off">Password will not include digits</string>
+    <string name="pref_digits_summary_on">Password will include digits</string>
+    <!-- lower letters switch -->
+    <string name="pref_alpha_lower_title">Lower letters (avg)</string>
+    <string name="pref_alpha_lower_summary_off">Password will not include lower letters</string>
+    <string name="pref_alpha_lower_summary_on">Password will include lower letters</string>
+    <!-- upper letters switch -->
+    <string name="pref_alpha_upper_title">Upper letters (AVG)</string>
+    <string name="pref_alpha_upper_summary_off">Password will not include upper letters</string>
+    <string name="pref_alpha_upper_summary_on">Password will include upper letters</string>
+    <!-- special characters switch -->
+    <string name="pref_special_title">Special characters (@^&amp;)</string>
+    <string name="pref_special_summary_off">Password will not include special characters</string>
+    <string name="pref_special_summary_on">Password will include special characters</string>
+
+    <!-- Preference Others -->
+    <string name="pref_length_title">Password length</string>
 </resources>
