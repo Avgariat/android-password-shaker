@@ -10,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -55,15 +56,45 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
         // password generator
         passGenerator = new PasswordGenerator();
-        passGenerator.setDefaultOptions();
+        // set defaults
+        Resources res = getResources();
+        passGenerator.setDefaultDigits(res.getBoolean(R.bool.pref_digits_default))
+                .setDefaultLower(res.getBoolean(R.bool.pref_alpha_lower_default))
+                .setDefaultUpper(res.getBoolean(R.bool.pref_alpha_upper_default))
+                .setDefaultSpecial(res.getBoolean(R.bool.pref_special_default))
+                .setDefaultLen(res.getInteger(R.integer.pref_length_default));
 
         // save default settings values
         PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+    }
 
+    private void setSettings() {
         // shared prefs
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean prefDigits = prefs.getBoolean(SettingsActivity.KEY_SWITCH_DIGITS, false);
-        Toast.makeText(this, "" + prefDigits, Toast.LENGTH_SHORT).show();
+        boolean prefDigits = prefs.getBoolean(SettingsActivity.KEY_SWITCH_DIGITS, true);
+        boolean prefAlphaLower = prefs.getBoolean(SettingsActivity.KEY_SWITCH_ALPHA_LOWER, true);
+        boolean prefAlphaUpper = prefs.getBoolean(SettingsActivity.KEY_SWITCH_ALPHA_UPPER, false);
+        boolean prefSpecial = prefs.getBoolean(SettingsActivity.KEY_SWITCH_SPECIAL, false);
+        int prefLength = prefs.getInt(SettingsActivity.KEY_SEEK_BAR_LENGTH, passGenerator.getLen());
+
+        // if there is no charset checked, set default charsets
+        if (noneTrue(new boolean[]{prefDigits, prefAlphaLower, prefAlphaUpper, prefSpecial})) {
+            passGenerator.setDefaultCharsets();
+            SharedPreferences.Editor prefsEdit = prefs.edit();
+            prefsEdit.putBoolean(SettingsActivity.KEY_SWITCH_DIGITS, passGenerator.getDigits())
+                    .putBoolean(SettingsActivity.KEY_SWITCH_ALPHA_LOWER, passGenerator.getLower())
+                    .putBoolean(SettingsActivity.KEY_SWITCH_ALPHA_UPPER, passGenerator.getUpper())
+                    .putBoolean(SettingsActivity.KEY_SWITCH_SPECIAL, passGenerator.getSpecial());
+            prefsEdit.apply();
+            Toast.makeText(this, "Invalid options changed to defaults", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            passGenerator.setDigits(prefDigits)
+                    .setLower(prefAlphaLower)
+                    .setUpper(prefAlphaUpper)
+                    .setSpecial(prefSpecial)
+                    .setLen(prefLength);
+        }
     }
 
     @Override
@@ -148,11 +179,20 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     protected void onResume() {
         super.onResume();
         sensorManager.registerListener(this, sensorAcc, SensorManager.SENSOR_DELAY_GAME);
+        setSettings();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         sensorManager.unregisterListener(this);
+    }
+
+    private boolean noneTrue(boolean[] values) {
+        for (boolean value : values) {
+            if (value) return false;
+        }
+
+        return true;
     }
 }

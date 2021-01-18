@@ -19,13 +19,24 @@ public final class PasswordGenerator {
         public int minLen;
         public int maxLen;
 
+        public boolean defaultDigits = true;
+        public boolean defaultLower = true;
+        public boolean defaultUpper = false;
+        public boolean defaultSpecial = false;
+        public int defaultMinLen = 8;
+        public int defaultMaxLen = 8;
+
+        public void setDefaultCharsets() {
+            upper = defaultUpper;
+            lower = defaultLower;
+            digits = defaultDigits;
+            special = defaultSpecial;
+        }
+
         public void setDefaults() {
-            upper = false;
-            lower = true;
-            digits = true;
-            special = false;
-            minLen = 8;
-            maxLen = 12;
+            setDefaultCharsets();
+            minLen = defaultMinLen;
+            maxLen = defaultMaxLen;
         }
 
         public void reset() {
@@ -155,6 +166,83 @@ public final class PasswordGenerator {
             options.minLen = options.maxLen = len;
         }
 
+        return this;
+    }
+
+    public boolean getUpper() {
+        return options.upper;
+    }
+
+    public boolean getLower() {
+        return options.lower;
+    }
+
+    public boolean getDigits() {
+        return options.digits;
+    }
+
+    public boolean getSpecial() {
+        return options.special;
+    }
+
+    public int getMinLen() {
+        return options.minLen;
+    }
+
+    public int getMaxLen() {
+        return options.maxLen;
+    }
+
+    public int getLen() {
+        return getMinLen();
+    }
+
+    public PasswordGenerator setDefaultDigits(boolean status) {
+        options.defaultDigits = status;
+        return this;
+    }
+
+    public PasswordGenerator setDefaultLower(boolean status) {
+        options.defaultLower = status;
+        return this;
+    }
+
+    public PasswordGenerator setDefaultUpper(boolean status) {
+        options.defaultUpper = status;
+        return this;
+    }
+
+    public PasswordGenerator setDefaultSpecial(boolean status) {
+        options.defaultSpecial = status;
+        return this;
+    }
+
+    public PasswordGenerator setDefaultMinLen(int len) {
+        if (len > 0) {
+            options.defaultMinLen = len;
+        }
+
+        return this;
+    }
+
+    public PasswordGenerator setDefaultMaxLen(int len) {
+        if (len > 0) {
+            options.defaultMaxLen = len;
+        }
+
+        return this;
+    }
+
+    public PasswordGenerator setDefaultLen(int len) {
+        if (len > 0) {
+            options.defaultMinLen = options.defaultMaxLen = len;
+        }
+
+        return this;
+    }
+
+    public PasswordGenerator setDefaultCharsets() {
+        options.setDefaultCharsets();
         return this;
     }
 
