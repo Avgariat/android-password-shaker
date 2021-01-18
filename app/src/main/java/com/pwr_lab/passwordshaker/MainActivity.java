@@ -24,10 +24,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
     private SensorManager sensorManager;
     private Sensor sensorAcc;
-    private float x, y, z;
     private long timeLastShake;
+    private boolean hasShaken = false;
 
     private PasswordGenerator passGenerator;
+    private MainFragment mainFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setTheme(R.style.Theme_PasswordShaker);
 
         super.onCreate(savedInstanceState);
-
-        heavyLoad();
 
         setContentView(R.layout.activity_main);
 
@@ -79,21 +78,11 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         return true;
     }
 
-    private void heavyLoad() {
-        int xd = 0;
-        for (int i = 0; i < 1000000; i++) {
-            for (int j = 0; j < 10; j++) {
-                xd += i;
-            }
-            xd += i;
-        }
-    }
-
     // Navigate to given fragment
     public void navigateTo(Fragment fragment, boolean addToBackStack) {
         FragmentTransaction transaction = getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, fragment);
+                .replace(R.id.main_container, fragment);
 
         if (addToBackStack) {
             transaction.addToBackStack(null);
@@ -103,8 +92,15 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
 
     private void onShake() {
-        //Toast.makeText(this, "(" + x + ", " + y + ", " + z + ")", Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "" + this.getSquareAccLen(), Toast.LENGTH_SHORT).show();
+        String newPassword = passGenerator.next();
+        if (!hasShaken) {
+            mainFragment = MainFragment.newInstance(newPassword);
+            navigateTo(mainFragment, false);
+            hasShaken = true;
+        }
+        else {
+            mainFragment.setPassword(newPassword);
+        }
 
         timeLastShake = System.currentTimeMillis();
     }
@@ -118,17 +114,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         onShake();
     }
 
-    private float getSquareAccLen() {
-        return x * x + y * y + z * z;
-    }
-
     private boolean isAccelerationChanged(SensorEvent event) {
         float x = event.values[0],
                 y = event.values[1],
                 z = event.values[2];
-        this.x = x;
-        this.y = y;
-        this.z = z;
 
         // Well, let's skip Math.sqrt by comparing squares
         float squareVectorLen = x * x + y * y + z * z;
