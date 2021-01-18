@@ -50,6 +50,7 @@ public class MainFragment extends Fragment {
 
     public void setPassword(String password) {
         this.password = password;
+        // basically if onCreateView has not been called yet
         if (passwordView != null) {
             passwordView.setText(password);
         }
