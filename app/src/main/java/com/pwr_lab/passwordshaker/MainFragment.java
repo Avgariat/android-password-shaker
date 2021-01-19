@@ -48,7 +48,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View thisView = inflater.inflate(R.layout.fragment_main, container, false);
-        passwordView = (TextView) thisView.findViewById(R.id.f_main_password);
+        passwordView = thisView.findViewById(R.id.f_main_password);
         passwordView.setText(password);
         passwordView.setOnClickListener(this);
         return thisView;
