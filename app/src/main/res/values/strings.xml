@@ -6,6 +6,7 @@
     <string name="guide_text_main">Shake your phone in order to generate new password</string>
     <string name="ps_settings_title">Settings</string>
     <string name="f_main_password_title">Generated password</string>
+    <string name="unsupported_text_main">Unfortunately your device is unsupported. :(</string>
 
     <!-- settings activity -->
     <string name="activity_settings_title">Settings</string>

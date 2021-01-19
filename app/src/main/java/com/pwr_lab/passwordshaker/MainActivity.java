@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // sensor
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensorAcc = sensorManager.getDefaultSensor(Sensor.TYPE_LINEAR_ACCELERATION);
+        if (sensorAcc == null) {
+            navigateTo(new UnsupportedFragment(), false);
+        }
 
         // password generator
         passGenerator = new PasswordGenerator();

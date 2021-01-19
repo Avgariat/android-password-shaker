@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,8 +66,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         if (password == null || password.length() == 0) return;
 
-        ClipboardManager clipboard = (ClipboardManager) getActivity()
-                .getSystemService(Context.CLIPBOARD_SERVICE);
+        FragmentActivity activity = getActivity();
+        if (activity == null) return;
+
+        ClipboardManager clipboard = (ClipboardManager) activity.getSystemService(Context.CLIPBOARD_SERVICE);
 
         ClipData clipData = ClipData.newPlainText("new-password", password);
 

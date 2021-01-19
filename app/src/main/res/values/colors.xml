@@ -15,4 +15,5 @@
     <color name="secondaryVariant">#000</color>
     <color name="onPrimary">#FFF</color>
     <color name="onSecondary">#000</color>
+    <color name="colorSurface">#D30D5E</color>
 </resources>
